@@ -13,7 +13,17 @@ export class AppComponent {
   // -> each column entry has header label + data field
   // -> the data (rowData)
 
-  columnDefs = [{ field: 'make' }, { field: 'model' }, { field: 'price' }];
+  // Want to enable sorting based on price of the car: have to set the sortable property in each column we want to be able to sort by
+  // -> sort the grid by clicking on col headers
+
+  // Want to enable filtering using the filter property 
+  // -> the grid will display a small column menu icon when you hover the header
+  
+  columnDefs = [
+    { field: 'make', sortable: true, filter: true },
+    { field: 'model', sortable: true, filter: true },
+    { field: 'price', sortable: true, filter: true },
+  ];
 
   rowData = [
     { make: 'Toyota', model: 'Celica', price: 35000 },
