@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 
 import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule } from '@angular/common/http';
-
+import 'ag-grid-enterprise';
 
 // withComponents call is necessary for the grid to be able to use Angular components as cells / headers
 

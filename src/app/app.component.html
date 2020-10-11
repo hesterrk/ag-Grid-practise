@@ -1,10 +1,24 @@
-
 <!-- x2 property bindings
 -> rowData 
 -> columnDefs
 
 -The CSS class matches the name of CSS file we imported in styles.css -->
 
-<ag-grid-angular style="width: 500px; height: 500px;" class="ag-theme-alpine" [rowData]="rowData"
-  [columnDefs]="columnDefs">
+<!-- Row selection: user can pick many rows to select
+  -> We want to functionality of having a butter when we click the selected data gets sent to the server
+  -> Also need to add #agGrid local variable => references the multiple elements inside (row and cols) which serves as an instance of the ag-grid-angular element which we use in our component class
+
+-->
+
+<button (click)="getSelectedRows()">Get Selected Rows</button>
+<ag-grid-angular
+  #agGrid
+  style="width: 500px; height: 500px"
+  class="ag-theme-alpine"
+  [defaultColDef]="defaultColDef"
+  [autoGroupColumnDef]="autoGroupColumnDef"
+  [rowData]="rowData | async"
+  [columnDefs]="columnDefs"
+  rowSelection="multiple"
+>
 </ag-grid-angular>
