@@ -31,37 +31,30 @@ export class AppComponent implements OnInit {
 
   // Allow the user to select a certain rows (under the make column) from the grid with checkboxSelection property -> when user checks the make field it selects that row
 
-
   // columnDefs = [
   //   { field: 'make', sortable: true, filter: true, checkboxSelection: true },
   //   { field: 'model', sortable: true, filter: true },
   //   { field: 'price', sortable: true, filter: true },
   // ];
 
-  // With grouping --> 
-  // -> Grid groups the data by MAKE, while listing the model field value when expanded
+  // With grouping -->
+  // -> Grid groups the data by make, while listing the model field value when expanded
   defaultColDef = {
     sortable: true,
-    filter: true
+    filter: true,
   };
-  
-  columnDefs = [
-    { field: 'make', rowGroup: true },
-    { field: 'price' }
-  ];
-  
-  // The col that shows up -> have to expand to get the above colDefs
+
+  columnDefs = [{ field: 'make', rowGroup: true }, { field: 'price' }];
+
+  // The col that shows up -> have to expand to get the other colDefs (above)
   autoGroupColumnDef = {
     headerName: 'Model',
     field: 'model',
     cellRenderer: 'agGroupCellRenderer',
     cellRendererParams: {
-        checkbox: true
-    }
-};
-
-
-
+      checkbox: true,
+    },
+  };
 
   // We dont know the type yet of the data from server
   rowData: any;
@@ -82,7 +75,12 @@ export class AppComponent implements OnInit {
 
   getSelectedRows() {
     const selectedNodes = this.agGrid.api.getSelectedNodes();
-    const selectedData = selectedNodes.map((node) => node.data);
+    const selectedData = selectedNodes.map((node) => {
+      if (node.groupData) {
+        return { make: node.key, model: 'Group' };
+      }
+      return node.data;
+    });
     const selectedDataStringPresentation = selectedData
       .map((node) => node.make + ' ' + node.model)
       .join(', ');
